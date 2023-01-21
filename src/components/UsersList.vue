@@ -20,7 +20,8 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }} <span class="grey--text text--lighten-1" v-if="item.score" title="Score">{{ item.score }}</span>
+            <v-list-item-title>{{ item.title }} <span class="grey--text text--lighten-1" v-if="item.score"
+                                                      title="Score">{{ item.score }}</span>
             </v-list-item-title>
             <div>
               <v-chip small>
@@ -39,5 +40,5 @@
 export default {
   name: 'UsersList',
   props: { users: { required: true, type: Array }, headerText: { type: String }, },
-}
+};
 </script>

@@ -19,15 +19,17 @@
           md="4"
       >
         <v-select
-            v-model="variant"
-            :items="items"
+            :value="filters.country"
+            :items="countriesFilterOptions"
+            @change="onChangeCountryFilter"
             clearable
             label="Filter by country"
         ></v-select>
 
         <v-select
-            v-model="variant"
-            :items="items"
+            :value="filters.score"
+            :items="scoresFilterOptions"
+            @change="onChangeScoreFilter"
             clearable
             label="Filter by score"
         ></v-select>
@@ -48,52 +50,25 @@ import UsersList from "@/components/UsersList";
 
 export default {
   name: 'ContentBlock',
+  props: { users: { required: true, type: Array }, filters: { required: true, type: Object } },
   components: { UsersList },
   data: () => ({
-    items: [
+    countriesFilterOptions: [
       'russia',
       'usa',
+    ],
+    scoresFilterOptions: [
       '> 20',
       '< 10',
-    ],
-    variant: 'default',
-    users: [
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-        title: 'Brunch this weekend?',
-        subtitle: `<span class="text--primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-        score: 0,
-        country: 'Russia'
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-        title: 'Summer BBQ',
-        subtitle: `<span class="text--primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
-        score: 4,
-        country: 'USA'
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-        title: 'Oui oui',
-        subtitle: '<span class="text--primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
-        score: 0,
-        country: 'Russia'
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-        title: 'Birthday gift',
-        subtitle: '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
-        score: 0,
-        country: 'Russia'
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-        title: 'Recipe to try',
-        subtitle: '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-        score: 0,
-        country: 'Russia'
-      },
-    ],
+    ]
   }),
-}
+  methods: {
+    onChangeCountryFilter(value) {
+      this.$emit('changeFilters', { ...this.filters, country: value });
+    },
+    onChangeScoreFilter(value) {
+      this.$emit('changeFilters', { ...this.filters, score: value });
+    }
+  }
+};
 </script>
