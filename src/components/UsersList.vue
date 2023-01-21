@@ -16,7 +16,32 @@
         />
         <v-list-item :key="item.title">
           <v-list-item-avatar>
-            <v-img :src="item.avatar"/>
+
+            <v-menu
+                bottom
+                min-width="200px"
+                rounded
+                offset-y
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                    icon
+                    x-large
+                    v-on="on"
+                >
+                  <v-avatar
+                      size="48"
+                  >
+                    <v-img :src="item.avatar"/>
+                  </v-avatar>
+                </v-btn>
+              </template>
+              <v-card>
+                <p class="text-caption ma-0 px-1">
+                  {{ item.address }}
+                </p>
+              </v-card>
+            </v-menu>
           </v-list-item-avatar>
 
           <v-list-item-content>
